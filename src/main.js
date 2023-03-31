@@ -43,7 +43,12 @@ newBookBtn.addEventListener('click', function(event) {
   createUserBook()
 })
 saveBtn.addEventListener('click', addSavedCover);
-
+savedCoversSection.addEventListener('dblclick', function(event) {
+  deleteCover(event.target)
+})
+// homeView.addEventListener('click', function(event) {
+//   randomizeSection(event.target)
+// })
 // Create your event handlers and other functions here 👇
 
 function getAllIndexs() {
@@ -56,6 +61,13 @@ function getAllIndexs() {
   return idx;
 }
 
+function showCover(currCover) {
+  coverImg.src = currCover.coverImg;
+  coverTitle.innerText = currCover.title;
+  tagline1.innerText = currCover.tagline1;
+  tagline2.innerText = currCover.tagline2;
+}
+
 function displayCover() {
   var idx = getAllIndexs();
   currentCover = createCover(
@@ -64,10 +76,7 @@ function displayCover() {
     descriptors[idx.descrip1],
     descriptors[idx.descrip2]
   );
-  coverImg.src = currentCover.coverImg;
-  coverTitle.innerText = currentCover.title;
-  tagline1.innerText = currentCover.tagline1;
-  tagline2.innerText = currentCover.tagline2;
+  showCover(currentCover);
 }
 
 function switchView(selectedView) {
@@ -104,9 +113,9 @@ function switchToHome() {
 }
 
 function cloneSections() {
-  for (var i =0; i < savedCovers.length; i++) {
-    savedCoversSection.innerHTML += `
-    <section class="mini-cover" id="${savedCovers[i].id}">
+  for (var i = 0; i < savedCovers.length; i++) {
+      savedCoversSection.innerHTML += `
+      <section class="mini-cover" id="${savedCovers[i].id}">
         <img class="cover-image" src="${savedCovers[i].coverImg}">
         <h2 class="cover-title">${savedCovers[i].title}</h2>
         <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
@@ -119,6 +128,7 @@ function cloneSections() {
 function switchToSaved() {
   switchView(savedView);
   switchBtns(savedView);
+  savedCoversSection.innerHTML = ``;
   cloneSections();
 }
  
@@ -135,16 +145,12 @@ function addToData(cover) {
   if (!descriptors.includes(cover.tagline2)) {
     descriptors.push(cover.tagline2)
   }
-  }
+}
 
 function createUserBook() {
   currentCover = createCover(userCover.value, userTitle.value, userTagline1.value, userTagline2.value);
-  coverImg.src = currentCover.coverImg;
-  coverTitle.innerText = currentCover.title;
-  tagline1.innerText = currentCover.tagline1;
-  tagline2.innerText = currentCover.tagline2;
+  showCover(currentCover);
   addToData(currentCover);
-  console.log(currentCover)
   switchToHome();
 }
 
@@ -153,6 +159,39 @@ function addSavedCover() {
     savedCovers.push(currentCover)
   }
 }
+
+function deleteCover(event) {
+ for (var i = 0; i < savedCovers.length; i++) {
+  console.log(savedCovers[i].id.toString())
+  if (savedCovers[i].id.toString() === event.parentNode.id) {
+    savedCovers.splice(i ,1)
+    event.parentNode.classList.add('hidden')
+  }
+ }
+}
+
+// function randomizeSection(event) {
+//   var idx = getAllIndexs()
+//   if (event.className === 'cover-image') {
+//     coverImg.src = covers[idx.cover];
+//     currentCover.coverImg = covers[idx.cover];
+//   } else if (event.className === 'cover-title') {
+//     coverTitle.innerText = titles[idx.title];
+//     currentCover.title = titles[idx.title];
+//   } else if (event.className === 'tagline-1') {
+//     tagline1.innerText = descriptors[idx.descrip1];
+//     currentCover.tagline1 = descriptors[idx.descrip1];
+//   } else if (event.className === 'tagline-2') {
+//     tagline2.innerText = descriptors[idx.descrip2];
+//     currentCover.tagline2 = descriptors[idx.descrip2];
+//   } else if (event.className === 'tagline') {
+//     tagline1.innerText = descriptors[idx.descrip1];
+//     tagline2.innerText = descriptors[idx.descrip2];
+//     currentCover.tagline1 = descriptors[idx.descrip1];
+//     currentCover.tagline2 = descriptors[idx.descrip2];
+//   }
+//   currentCover.id = Date.now();
+// }
 // We've provided two functions to get you started
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
