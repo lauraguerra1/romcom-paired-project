@@ -2,15 +2,15 @@
 # RomCom  
 
 ### Abstract:
-This application randomly renerates classical romantic comedy book covers with titles and taglines. Users are also able to create their own unique book cover by entering custom descriptors. Lastly, users are able to save preferred covers, view a display of all saved covers, and delete undesired covers. This app can be used to help writers overcome creative blocks by generating new story ideas based off of a cover image, title, and tagline.
+This application randomly generates classical romantic comedy book covers with titles and taglines. Users are also able to create their own unique book cover by entering custom descriptors and photos. Lastly, users are able to save preferred covers, view a display of all saved covers, and delete undesired covers. This app can be used to help writers overcome creative blocks by generating new story ideas based off of a cover image, title, and tagline.
 
 [//]: <> (Briefly describe what you built and its features. What problem is the app solving? How does this application solve that problem?)
 
 ### Installation Instructions:
 - Fork this repository. 
 - Copy the SSH key and clone it to your local directory. 
-- cd into the repository
-- run open index.html to open the site via default browser. 
+- In your terminal, `cd` into the repository
+- In your terminal, run `open index.html` to open the site via default browser. 
 
 Alternatively, one can access this project on a browser via this [github pages link.](https://lauraguerra1.github.io/romcom-paired-project/) 
 
