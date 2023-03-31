@@ -85,7 +85,7 @@ function switchView(selectedView) {
       selectedView.classList.remove('hidden');
     }
     else {
-      allViews[i].classList.add('hidden')    
+      allViews[i].classList.add("hidden");    
     }
   }
 }
@@ -121,7 +121,7 @@ function cloneSections() {
         <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
         <img class="price-tag" src="./assets/price.png">
         <img class="overlay" src="./assets/overlay.png">
-        </section>`
+      </section>`
   }
 }
 
@@ -134,37 +134,42 @@ function switchToSaved() {
  
 function addToData(cover) {
   if (!covers.includes(cover.coverImg)) {
-    covers.push(cover.coverImg)
+    covers.push(cover.coverImg);
   }
   if (!titles.includes(cover.title)) {
-    titles.push(cover.title)
+    titles.push(cover.title);
   }
   if (!descriptors.includes(cover.tagline1)) {
-    descriptors.push(cover.tagline1)
+    descriptors.push(cover.tagline1);
   }
   if (!descriptors.includes(cover.tagline2)) {
-    descriptors.push(cover.tagline2)
+    descriptors.push(cover.tagline2);
   }
 }
 
 function createUserBook() {
-  currentCover = createCover(userCover.value, userTitle.value, userTagline1.value, userTagline2.value);
+  currentCover = createCover(
+    userCover.value,
+    userTitle.value,
+    userTagline1.value,
+    userTagline2.value
+  );
   showCover(currentCover);
   addToData(currentCover);
   switchToHome();
 }
 
 function addSavedCover() {
-  if (!savedCovers.includes(currentCover)){
-    savedCovers.push(currentCover)
+  if (!savedCovers.includes(currentCover)) {
+    savedCovers.push(currentCover);
   }
 }
 
 function deleteCover(event) {
  for (var i = 0; i < savedCovers.length; i++) {
   if (savedCovers[i].id.toString() === event.parentNode.id) {
-    savedCovers.splice(i ,1)
-    event.parentNode.classList.add('hidden')
+    savedCovers.splice(i, 1);
+    event.parentNode.classList.add("hidden");
   }
  }
 }
@@ -173,20 +178,45 @@ function randomizeSection(event) {
   var idx = getAllIndexs()
   if (event.className === 'cover-image') {
     coverImg.src = covers[idx.cover];
-    currentCover = createCover(covers[idx.cover], currentCover.title, currentCover.tagline1, currentCover.tagline2)
+    currentCover = createCover(
+      covers[idx.cover],
+      currentCover.title,
+      currentCover.tagline1,
+      currentCover.tagline2
+    );
   } else if (event.className === 'cover-title') {
     coverTitle.innerText = titles[idx.title];
-    currentCover = createCover(currentCover.coverImg, titles[idx.title], currentCover.tagline1, currentCover.tagline2)
+    currentCover = createCover(
+      currentCover.coverImg,
+      titles[idx.title],
+      currentCover.tagline1,
+      currentCover.tagline2
+    );
   } else if (event.className === 'tagline-1') {
     tagline1.innerText = descriptors[idx.descrip1];
-    currentCover = createCover(currentCover.coverImg, currentCover.title, descriptors[idx.descrip1], currentCover.tagline2)
+    currentCover = createCover(
+      currentCover.coverImg,
+      currentCover.title,
+      descriptors[idx.descrip1],
+      currentCover.tagline2
+    );
   } else if (event.className === 'tagline-2') {
     tagline2.innerText = descriptors[idx.descrip2];
-    currentCover = createCover(currentCover.coverImg, currentCover.title, currentCover.tagline1, descriptors[idx.descrip2])
+    currentCover = createCover(
+      currentCover.coverImg,
+      currentCover.title,
+      currentCover.tagline1,
+      descriptors[idx.descrip2]
+    );
   } else if (event.className === 'tagline') {
     tagline1.innerText = descriptors[idx.descrip1];
     tagline2.innerText = descriptors[idx.descrip2];
-    currentCover = createCover(currentCover.coverImg, currentCover.title, descriptors[idx.descrip1], descriptors[idx.descrip2])
+    currentCover = createCover(
+      currentCover.coverImg,
+      currentCover.title,
+      descriptors[idx.descrip1],
+      descriptors[idx.descrip2]
+    );
   }
 }
 // We've provided two functions to get you started
