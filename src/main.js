@@ -43,6 +43,10 @@ newBookBtn.addEventListener('click', function(event) {
   createUserBook()
 })
 saveBtn.addEventListener('click', addSavedCover);
+savedCoversSection.addEventListener('dblclick', function(event) {
+  deleteCover(event.target)
+})
+
 
 // Create your event handlers and other functions here 👇
 
@@ -152,6 +156,16 @@ function addSavedCover() {
   if (!savedCovers.includes(currentCover)){
     savedCovers.push(currentCover)
   }
+}
+
+function deleteCover(event) {
+  for (var i = 0; i < savedCovers.length; i++) {
+    if(savedCovers[i].id.toString() === event.parentNode.id) {   
+   savedCovers.splice(i, 1);
+   event.parentNode.classList.add('hidden');
+    }
+  }
+
 }
 // We've provided two functions to get you started
 function getRandomIndex(array) {
