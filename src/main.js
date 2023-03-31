@@ -49,6 +49,7 @@ savedCoversSection.addEventListener('dblclick', function(event) {
 // homeView.addEventListener('click', function(event) {
 //   randomizeSection(event.target)
 // })
+
 // Create your event handlers and other functions here 👇
 
 function getAllIndexs() {
@@ -162,7 +163,6 @@ function addSavedCover() {
 
 function deleteCover(event) {
  for (var i = 0; i < savedCovers.length; i++) {
-  console.log(savedCovers[i].id.toString())
   if (savedCovers[i].id.toString() === event.parentNode.id) {
     savedCovers.splice(i ,1)
     event.parentNode.classList.add('hidden')
@@ -192,6 +192,7 @@ function deleteCover(event) {
 //   }
 //   currentCover.id = Date.now();
 // }
+
 // We've provided two functions to get you started
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
