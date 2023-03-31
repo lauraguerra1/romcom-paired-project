@@ -60,6 +60,13 @@ function getAllIndexs() {
   return idx;
 }
 
+function showCover(currCover) {
+  coverImg.src = currCover.coverImg;
+  coverTitle.innerText = currCover.title;
+  tagline1.innerText = currCover.tagline1;
+  tagline2.innerText = currCover.tagline2;
+}
+
 function displayCover() {
   var idx = getAllIndexs();
   currentCover = createCover(
@@ -68,10 +75,7 @@ function displayCover() {
     descriptors[idx.descrip1],
     descriptors[idx.descrip2]
   );
-  coverImg.src = currentCover.coverImg;
-  coverTitle.innerText = currentCover.title;
-  tagline1.innerText = currentCover.tagline1;
-  tagline2.innerText = currentCover.tagline2;
+  showCover(currentCover);
 }
 
 function switchView(selectedView) {
@@ -143,12 +147,8 @@ function addToData(cover) {
 
 function createUserBook() {
   currentCover = createCover(userCover.value, userTitle.value, userTagline1.value, userTagline2.value);
-  coverImg.src = currentCover.coverImg;
-  coverTitle.innerText = currentCover.title;
-  tagline1.innerText = currentCover.tagline1;
-  tagline2.innerText = currentCover.tagline2;
   addToData(currentCover);
-  console.log(currentCover)
+  showCover(currentCover)
   switchToHome();
 }
 
@@ -161,8 +161,8 @@ function addSavedCover() {
 function deleteCover(event) {
   for (var i = 0; i < savedCovers.length; i++) {
     if(savedCovers[i].id.toString() === event.parentNode.id) {   
-   savedCovers.splice(i, 1);
-   event.parentNode.classList.add('hidden');
+      savedCovers.splice(i, 1);
+      event.parentNode.classList.add('hidden');
     }
   }
 
