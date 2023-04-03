@@ -45,11 +45,6 @@ Alternatively, one can access this project on a browser via this [github pages l
 During iteration 1, we had issues getting started as we lacked an understanding of the classList object. Once we learned how to invoke the `add()` and `remove()` methods on the `classList` object to hide DOM elements, we were able to move through the remainder of that iteration. 
 - *Biggest win*: 
 <br>
-Once we learned more about the `classList` object, the `className` string, and the relationship between `childNode` and `parentNode` er gained confidence in our skills and were able to progress through the remaining iterations. Additionally, gaining an understanding of the `target` property of DOM elements was useful in idenfying which element an event originated from, and allowed us to complete iteration 4. 
-<br>
-#### Other wins that were essential to our professional development include: 
-1. Completion of our first collaborative project 
-2. We originally overestimated the amount of time it would take to complete thr project, and finished ahead of schedule.  
-3. We furthered our understanding of the value of stopping work and **identifying unproductive struggle**. This skill allowed us to regroup and make headway when we resturned with fresh eyes and ideas. 
+Once we learned more about the `classList` property, the `className` string, and the relationship between `childNode` and `parentNode` we gained confidence in our ability to manipulate the DOM elements through javascript, and we were able to progress through the remaining iterations. Additionally, gaining an understanding of the `target` property of DOM elements was useful in idenfying which element an event originated from, and allowed us to complete iteration 4. Other wins that were essential to our professional development include completion of our first collaborative project and finishing earier than we had anticipted. Lastly, we furthered our understanding of the value of identifying unproductive struggle and knowing when to stop working. This skill allowed us to regroup and make headway when we resturned with fresh eyes and ideas. 
 
 [//]: <> (What are 2-3 wins you have from this project? What were some challenges you faced - and how did you get over them?)
