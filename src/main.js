@@ -159,12 +159,13 @@ function addSavedCover() {
 }
 
 function deleteCover(event) {
- for (var i = 0; i < savedCovers.length; i++) {
-  if (savedCovers[i].id.toString() === event.parentNode.id) {
-    savedCovers.splice(i, 1);
-    event.parentNode.classList.add("hidden");
-  }
- }
+  savedCovers.forEach((cover, i) => {
+    if(cover.id.toString() === event.parentNode.id) {
+      savedCovers.splice(i, 1);
+      savedCoversSection.innerHTML = ``;
+      cloneSections();
+    }
+  })
 }
 
 function randomizeSection(event) {
