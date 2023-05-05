@@ -169,55 +169,23 @@ function deleteCover(event) {
 
 function randomizeSection(event) {
   var idx = getAllIndexs()
-  if (event.className === 'cover-image') {
-    coverImg.src = covers[idx.cover];
-    currentCover = createCover(
-      covers[idx.cover],
-      currentCover.title,
-      currentCover.tagline1,
-      currentCover.tagline2
-    );
-  } else if (event.className === 'cover-title') {
-    coverTitle.innerText = titles[idx.title];
-    currentCover = createCover(
-      currentCover.coverImg,
-      titles[idx.title],
-      currentCover.tagline1,
-      currentCover.tagline2
-    );
-  } else if (event.className === 'tagline-1') {
-    tagline1.innerText = descriptors[idx.descrip1];
-    currentCover = createCover(
-      currentCover.coverImg,
-      currentCover.title,
-      descriptors[idx.descrip1],
-      currentCover.tagline2
-    );
-  } else if (event.className === 'tagline-2') {
-    tagline2.innerText = descriptors[idx.descrip2];
-    currentCover = createCover(
-      currentCover.coverImg,
-      currentCover.title,
-      currentCover.tagline1,
-      descriptors[idx.descrip2]
-    );
-  } else if (event.className === 'tagline') {
-    tagline1.innerText = descriptors[idx.descrip1];
-    tagline2.innerText = descriptors[idx.descrip2];
-    currentCover = createCover(
-      currentCover.coverImg,
-      currentCover.title,
-      descriptors[idx.descrip1],
-      descriptors[idx.descrip2]
-    );
+  var lookup = {
+    'cover-image': () => createCover(covers[idx.cover]),
+    'cover-title': () => createCover(currentCover.coverImg, titles[idx.title]),
+    'tagline': () => createCover(currentCover.coverImg, currentCover.title, descriptors[idx.descrip1], descriptors[idx.descrip2]),
+    'tagline-1': () => createCover(currentCover.coverImg, currentCover.title, descriptors[idx.descrip1]),
+    'tagline-2': () => createCover(currentCover.coverImg, currentCover.title, currentCover.tagline1, descriptors[idx.descrip2]),
+
   }
+  currentCover = lookup[event.className]();
+  showCover(currentCover)
 }
 // We've provided two functions to get you started
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function createCover(imgSrc, title, descriptor1, descriptor2) {
+function createCover(imgSrc, title = currentCover.title, descriptor1 = currentCover.tagline1, descriptor2 = currentCover.tagline2) {
   var cover = {
     id: Date.now(),
     coverImg: imgSrc,
