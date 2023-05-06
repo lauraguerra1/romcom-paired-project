@@ -18,7 +18,6 @@ var userTagline1 = document.getElementById('descriptor1');
 var userTagline2 = document.getElementById('descriptor2');
 var savedCoversSection = document.querySelector('.saved-covers-section');
 var coverView = document.querySelector('.main-cover');
-// var allViews = [homeView, savedView, formView];
 
 
 // We've provided a few variables below
@@ -122,19 +121,25 @@ function switchToSaved() {
   cloneSections();
 }
  
+function addToCovers(cover) {
+  if (!covers.includes(cover.coverImg)) covers.push(cover.coverImg);
+}
+
+function addToTitles(cover) {
+  if (!titles.includes(cover.title)) titles.push(cover.title);
+}
+
+
+function addToDescriptors(cover) {
+  [cover.tagline1, cover.tagline2].forEach((tagline) => {
+    if(!descriptors.includes(tagline)) descriptors.push(tagline);
+  })
+}
+
 function addToData(cover) {
-  if (!covers.includes(cover.coverImg)) {
-    covers.push(cover.coverImg);
-  }
-  if (!titles.includes(cover.title)) {
-    titles.push(cover.title);
-  }
-  if (!descriptors.includes(cover.tagline1)) {
-    descriptors.push(cover.tagline1);
-  }
-  if (!descriptors.includes(cover.tagline2)) {
-    descriptors.push(cover.tagline2);
-  }
+  addToCovers(cover);
+  addToTitles(cover);
+  addToDescriptors(cover) ;
 }
 
 function createUserBook() {
