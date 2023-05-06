@@ -18,7 +18,6 @@ var userTagline1 = document.getElementById('descriptor1');
 var userTagline2 = document.getElementById('descriptor2');
 var savedCoversSection = document.querySelector('.saved-covers-section');
 var coverView = document.querySelector('.main-cover');
-var allViews = [homeView, savedView, formView];
 
 
 // We've provided a few variables below
@@ -73,14 +72,11 @@ function displayCover() {
 }
 
 function switchView(selectedView) {
-  for (var i = 0; i < allViews.length; i++) {
-    if(allViews[i] === selectedView) {
-      selectedView.classList.remove('hidden');
-    }
-    else {
-      allViews[i].classList.add("hidden");    
-    }
-  }
+  [homeView, savedView, formView].forEach((view) => {
+    view === selectedView
+      ? view.classList.remove('hidden')
+      : view.classList.add("hidden");    
+  })
 }
  
 function switchBtns(selectedView) {
@@ -106,16 +102,16 @@ function switchToHome() {
 }
 
 function cloneSections() {
-  for (var i = 0; i < savedCovers.length; i++) {
-      savedCoversSection.innerHTML += `
-      <section class="mini-cover" id="${savedCovers[i].id}">
-        <img class="cover-image" src="${savedCovers[i].coverImg}">
-        <h2 class="cover-title">${savedCovers[i].title}</h2>
-        <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
-        <img class="price-tag" src="./assets/price.png">
-        <img class="overlay" src="./assets/overlay.png">
-      </section>`
-  }
+  savedCovers.forEach((cover) => {
+    savedCoversSection.innerHTML += `
+    <section class="mini-cover" id="${cover.id}">
+      <img class="cover-image" src="${cover.coverImg}">
+      <h2 class="cover-title">${cover.title}</h2>
+      <h3 class="tagline">A tale of <span class="tagline-1">${cover.tagline1}</span> and <span class="tagline-2">${cover.tagline2}</span></h3>
+      <img class="price-tag" src="./assets/price.png">
+      <img class="overlay" src="./assets/overlay.png">
+    </section>`
+  })
 }
 
 function switchToSaved() {
@@ -125,19 +121,25 @@ function switchToSaved() {
   cloneSections();
 }
  
+function addToCovers(cover) {
+  if (!covers.includes(cover.coverImg)) covers.push(cover.coverImg);
+}
+
+function addToTitles(cover) {
+  if (!titles.includes(cover.title)) titles.push(cover.title);
+}
+
+
+function addToDescriptors(cover) {
+  [cover.tagline1, cover.tagline2].forEach((tagline) => {
+    if(!descriptors.includes(tagline)) descriptors.push(tagline);
+  })
+}
+
 function addToData(cover) {
-  if (!covers.includes(cover.coverImg)) {
-    covers.push(cover.coverImg);
-  }
-  if (!titles.includes(cover.title)) {
-    titles.push(cover.title);
-  }
-  if (!descriptors.includes(cover.tagline1)) {
-    descriptors.push(cover.tagline1);
-  }
-  if (!descriptors.includes(cover.tagline2)) {
-    descriptors.push(cover.tagline2);
-  }
+  addToCovers(cover);
+  addToTitles(cover);
+  addToDescriptors(cover) ;
 }
 
 function createUserBook() {
@@ -159,65 +161,34 @@ function addSavedCover() {
 }
 
 function deleteCover(event) {
- for (var i = 0; i < savedCovers.length; i++) {
-  if (savedCovers[i].id.toString() === event.parentNode.id) {
-    savedCovers.splice(i, 1);
-    event.parentNode.classList.add("hidden");
-  }
- }
+  savedCovers.forEach((cover, i) => {
+    if(cover.id.toString() === event.parentNode.id) {
+      savedCovers.splice(i, 1);
+      savedCoversSection.innerHTML = ``;
+      cloneSections();
+    }
+  })
 }
 
 function randomizeSection(event) {
   var idx = getAllIndexs()
-  if (event.className === 'cover-image') {
-    coverImg.src = covers[idx.cover];
-    currentCover = createCover(
-      covers[idx.cover],
-      currentCover.title,
-      currentCover.tagline1,
-      currentCover.tagline2
-    );
-  } else if (event.className === 'cover-title') {
-    coverTitle.innerText = titles[idx.title];
-    currentCover = createCover(
-      currentCover.coverImg,
-      titles[idx.title],
-      currentCover.tagline1,
-      currentCover.tagline2
-    );
-  } else if (event.className === 'tagline-1') {
-    tagline1.innerText = descriptors[idx.descrip1];
-    currentCover = createCover(
-      currentCover.coverImg,
-      currentCover.title,
-      descriptors[idx.descrip1],
-      currentCover.tagline2
-    );
-  } else if (event.className === 'tagline-2') {
-    tagline2.innerText = descriptors[idx.descrip2];
-    currentCover = createCover(
-      currentCover.coverImg,
-      currentCover.title,
-      currentCover.tagline1,
-      descriptors[idx.descrip2]
-    );
-  } else if (event.className === 'tagline') {
-    tagline1.innerText = descriptors[idx.descrip1];
-    tagline2.innerText = descriptors[idx.descrip2];
-    currentCover = createCover(
-      currentCover.coverImg,
-      currentCover.title,
-      descriptors[idx.descrip1],
-      descriptors[idx.descrip2]
-    );
+  var lookup = {
+    'cover-image': () => createCover(covers[idx.cover]),
+    'cover-title': () => createCover(currentCover.coverImg, titles[idx.title]),
+    'tagline': () => createCover(currentCover.coverImg, currentCover.title, descriptors[idx.descrip1], descriptors[idx.descrip2]),
+    'tagline-1': () => createCover(currentCover.coverImg, currentCover.title, descriptors[idx.descrip1]),
+    'tagline-2': () => createCover(currentCover.coverImg, currentCover.title, currentCover.tagline1, descriptors[idx.descrip2]),
+
   }
+  currentCover = lookup[event.className]();
+  showCover(currentCover)
 }
 // We've provided two functions to get you started
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
 }
 
-function createCover(imgSrc, title, descriptor1, descriptor2) {
+function createCover(imgSrc, title = currentCover.title, descriptor1 = currentCover.tagline1, descriptor2 = currentCover.tagline2) {
   var cover = {
     id: Date.now(),
     coverImg: imgSrc,
