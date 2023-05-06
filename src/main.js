@@ -18,7 +18,7 @@ var userTagline1 = document.getElementById('descriptor1');
 var userTagline2 = document.getElementById('descriptor2');
 var savedCoversSection = document.querySelector('.saved-covers-section');
 var coverView = document.querySelector('.main-cover');
-var allViews = [homeView, savedView, formView];
+// var allViews = [homeView, savedView, formView];
 
 
 // We've provided a few variables below
@@ -73,14 +73,11 @@ function displayCover() {
 }
 
 function switchView(selectedView) {
-  for (var i = 0; i < allViews.length; i++) {
-    if(allViews[i] === selectedView) {
-      selectedView.classList.remove('hidden');
-    }
-    else {
-      allViews[i].classList.add("hidden");    
-    }
-  }
+  [homeView, savedView, formView].forEach((view) => {
+    view === selectedView
+      ? view.classList.remove('hidden')
+      : view.classList.add("hidden");    
+  })
 }
  
 function switchBtns(selectedView) {
